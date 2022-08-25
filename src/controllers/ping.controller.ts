@@ -13,6 +13,9 @@ import {repository} from '@loopback/repository';
 import * as crypto from 'crypto';
 import {TokenResponse} from '../models/token-response.dto';
 import {AuthClientRepository, UserRepository} from '../repositories';
+
+import {TwilioDataSource} from '../datasources';
+import {NodeService} from '../services';
 import {AuthenticateErrorKeys} from '../types/error-keys';
 /**
  * OpenAPI response for ping()
@@ -55,6 +58,10 @@ export class PingController {
     private readonly getCurrentUser: Getter<User>,
     @inject.getter(AuthenticationBindings.CURRENT_CLIENT)
     private readonly getCurrentClient: Getter<AuthClient>,
+    @inject('services.NodeService')
+    protected nodeService: NodeService,
+    @inject('datasources.twilio')
+    protected twilioDataSource: TwilioDataSource,
 
   ) { }
 
@@ -71,6 +78,131 @@ export class PingController {
     };
   }
 
+  @get('/create/solution')
+  @response(200)
+  async createSolution() {
+    //add phone number to db and to asterisk
+    //add queue to db and to asterisk
+    //add hold music to asterisk and create recording in db
+    //add agents to asterisk and add agents to solution in db
+    //fwconsole reload
+    //overall goal =>create solution in db store queue id, hold music, agents, phone number
+
+    return this.nodeService.getGreeting()
+
+  }
+  @get('/available/numbers')
+  @response(200)
+  async availableNumbers() {
+    //call asterisk  and add agent to dynamic queue
+    //add agent to solution
+    //fwconsole reload
+    console.log("Available Number")
+    return await this.twilioDataSource.availableNumbers()
+  }
+
+  @get('/purchase/number')
+  @response(200)
+  async purchaseNumber(phoneNumber: string) {
+    //call asterisk  and add agent to dynamic queue
+    //add agent to solution
+    //fwconsole reload
+    console.log("Purchase Number")
+    return await this.twilioDataSource.purchaseNumber(phoneNumber)
+  }
+
+  @get('/queue/add/agent')
+  @response(200)
+  async addAgent() {
+    //call asterisk  and add agent to dynamic queue
+    //add agent to solution
+    //fwconsole reload
+    console.log("Add Agebt")
+    return this.nodeService.addAgentToQueue()
+  }
+  @get('/create/hold-music')
+  @response(200)
+  async createHoldMusic() {
+    //call asterisk server and upload music
+    //add music to db
+    //fwconsole reload
+    console.log("Add Music")
+    return this.nodeService.addMusic()
+  }
+  @post('/create/agent')
+  @response(200)
+  async createAgent() {
+    //call asterisk sdd misc ext
+    //OR
+    //call asterisk and add extension and user to db => if they ar eusing a softphoe
+    console.log("Add Agent")
+    return this.nodeService.addUser()
+  }
+  @post('/create/incoming-route')
+  @response(200)
+  async createIncoming() {
+    console.log("Create Incoming")
+    //call twilio and create number
+    //call asterisk and add number
+    //add both to database phone number => phone number db
+    // store asterisk incoming id with phone number
+    //stroe twilio id with number
+
+    return this.nodeService.addIncoming()
+
+  }
+  @post('/create/queue')
+  @response(200)
+  async createQueue() {
+    console.log("Create Incoming")
+    //call twilio and create number
+    //call asterisk and add number
+    //add both to database phone number => phone number db
+    // store asterisk incoming id with phone number
+    //stroe twilio id with number
+
+    return this.nodeService.addQueue()
+
+  }
+  @post('/agent/edit/number')
+  @response(200)
+  async agentChangeNumber() {
+    console.log("Edit NUmber")
+    //call twilio and create number
+    //call asterisk and add number
+    //add both to database phone number => phone number db
+    // store asterisk incoming id with phone number
+    //stroe twilio id with number
+
+    return this.nodeService.agentChangeNumber()
+
+  }
+  @post('/client/edit/queue')
+  @response(200)
+  async clientEditQueue() {
+    console.log("Edit Queue")
+    //call twilio and create number
+    //call asterisk and add number
+    //add both to database phone number => phone number db
+    // store asterisk incoming id with phone number
+    //stroe twilio id with number
+
+    return this.nodeService.clientChangeQueue()
+
+  }
+  @post('/client/edit/music')
+  @response(200)
+  async clientEditWQueue() {
+    console.log("Edit Music")
+    //call twilio and create number
+    //call asterisk and add number
+    //add both to database phone number => phone number db
+    // store asterisk incoming id with phone number
+    //stroe twilio id with number
+
+    return this.nodeService.clientChangeMusic()
+
+  }
   @post("/buy-number")
   @authenticate(STRATEGY.OAUTH2_RESOURCE_OWNER_GRANT)
   async buyNumber(
