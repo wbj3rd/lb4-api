@@ -1,9 +1,8 @@
-import {ApiApplication} from '../..';
 import {
-  createRestAppClient,
-  givenHttpServerConfig,
-  Client,
+  Client, createRestAppClient,
+  givenHttpServerConfig
 } from '@loopback/testlab';
+import {App} from '../..';
 
 export async function setupApplication(): Promise<AppWithClient> {
   const restConfig = givenHttpServerConfig({
@@ -14,7 +13,7 @@ export async function setupApplication(): Promise<AppWithClient> {
     // port: +process.env.PORT,
   });
 
-  const app = new ApiApplication({
+  const app = new App({
     rest: restConfig,
   });
 
@@ -27,6 +26,6 @@ export async function setupApplication(): Promise<AppWithClient> {
 }
 
 export interface AppWithClient {
-  app: ApiApplication;
+  app: App<any, any>;
   client: Client;
 }

@@ -33,7 +33,7 @@ export class MySequence implements SequenceHandler {
       //get token and get user id
       if (request.body) {
         const d: any = jwt.decode(request.body.token)
-        if (d.realm_access.roles.includes("Client")) {
+        if (d?.realm_access.roles.includes("Client")) {
           console.log("REALM ACCCESS To Add Number")
           request.body.password = "password"
           request.body.username = "admin"
@@ -42,8 +42,9 @@ export class MySequence implements SequenceHandler {
           //if (d?.azp === request.body.client_id) { }
           request.body.client_id = d?.azp;
           //console.log(request.body)
+          const r = await this.authenticateRequest(request);
         }
-        const r = await this.authenticateRequest(request);
+
       }
 
       //console.log(r)

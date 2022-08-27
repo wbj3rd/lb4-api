@@ -1,0 +1,28 @@
+img	http://rdcdn.com/rt?aid=19323&e=1&img=1	rdcdn.com	/	2038-01-01T05:59:59.622Z	42		✓	None			Medium	
+aid	19323	rdcdn.com	/	2038-01-01T05:59:59.622Z	8		✓	None			Medium	
+isiframeenabled	true	thewaveclearwater.com	/	2022-06-29T16:10:51.000Z	19		✓				Medium	
+walterj-_zldt	1929bcff-9995-4b0b-bd0b-21a3e356f643-2	.thewaveclearwater.com	/	2022-06-29T16:10:51.000Z	51		✓				Medium	
+gdpr[consent_types]	%5B%5D	thewaveclearwater.com	/	2023-06-28T16:10:49.209Z	25						Medium	
+walterj-_zldp	8Hq7xxoMUxm9hIX%2FQpqEQDyqgTyyy9bWxBIPOv2H0CieVMWx03Yl9Nx1jGf35%2BY%2BodoRkLyJC2Y%3D	.thewaveclearwater.com	/	2024-06-27T16:10:51.000Z	97		✓				Medium	
+userip	2603%3A9000%3A9007%3Ab4bf%3A78b7%3A46ca%3A5cb%3A1f20	thewaveclearwater.com	/	Session	58						Medium	
+zld571849000000002050state	0	.thewaveclearwater.com	/	2022-06-28T16:15:51.000Z	27		✓				Medium	
+handl_landing_page	https%3A%2F%2Fthewaveclearwater.com%2F%3Fcampaign%3Dcw_dynamic%26matchtype%26adposition	.thewaveclearwater.com	/	2022-07-28T16:10:49.209Z	105						Medium	
+_gid	GA1.2.292711131.1656432650	.thewaveclearwater.com	/	2022-06-29T16:10:50.000Z	30						Medium	
+_ga	GA1.2.516404142.1656432650	.thewaveclearwater.com	/	2024-06-27T16:10:50.000Z	29						Medium	
+_uc_visits	1	.thewaveclearwater.com	/	2022-07-28T16:10:50.000Z	11						Medium	
+_uc_current_session	true	.thewaveclearwater.com	/	2022-06-28T17:10:50.000Z	23						Medium	
+gdpr[allowed_cookies]	%5B%22PHPSESSID%22%5D	thewaveclearwater.com	/	2023-06-28T16:10:49.209Z	42						Medium	
+_uc_initial_landing_page	https%3A//thewaveclearwater.com/%3Fcampaign%3Dcw_dynamic%26matchtype%26adposition	.thewaveclearwater.com	/	2022-07-28T16:10:50.000Z	105						Medium	
+_uc_referrer	https%3A//www.google.com/	.thewaveclearwater.com	/	2022-07-28T16:10:50.000Z	37						Medium	
+_gat_gtag_UA_138893347_3	1	.thewaveclearwater.com	/	2022-06-28T16:11:50.000Z	25						Medium	
+handl_ip	2603%3A9000%3A9007%3Ab4bf%3A78b7%3A46ca%3A5cb%3A1f20	.thewaveclearwater.com	/	2022-07-28T16:10:49.209Z	60						Medium	
+gclid	undefined	thewaveclearwater.com	/	2022-07-28T16:10:50.000Z	14						Medium	
+_fbp	fb.1.1656432649815.1512013939	.thewaveclearwater.com	/	2022-09-26T16:10:50.000Z	33			Lax			Medium	
+handl_original_ref	https%3A%2F%2Fwww.google.com%2F	.thewaveclearwater.com	/	2022-07-28T16:10:49.209Z	49						Medium	
+_gcl_au	1.1.1597239653.1656432650	.thewaveclearwater.com	/	2022-09-26T16:10:49.000Z	32						Medium	
+_uc_last_referrer	https%3A//www.google.com/	.thewaveclearwater.com	/	2022-07-28T16:10:50.000Z	42						Medium	
+handl_url	https%3A%2F%2Fthewaveclearwater.com%2F%3Fcampaign%3Dcw_dynamic%26matchtype%26adposition	.thewaveclearwater.com	/	2022-07-28T16:10:49.209Z	96						Medium	
+ref	https://thewaveclearwater.com/?campaign=cw_dynamic&matchtype&adposition	rdcdn.com	/	2038-01-01T05:59:59.622Z	74		✓	None			Medium	
+source	Google	thewaveclearwater.com	/	2023-06-28T21:59:35.210Z	12						Medium	
+handl_ref	https%3A%2F%2Fwww.google.com%2F	.thewaveclearwater.com	/	2022-07-28T16:10:49.209Z	40						Medium	
+cprreftrack	https%3A%2F%2Fwww.bing.com%2F	thewaveclearwater.com	/	2022-06-29T16:10:49.209Z	40						Medium	

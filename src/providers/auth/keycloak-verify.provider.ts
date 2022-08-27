@@ -28,7 +28,7 @@ export class KeycloakVerifyProvider
 
       const authUser: AuthUser = new AuthUser({
         ...user,
-        id: user.id as number,
+        id: user.id,
       });
       authUser.permissions = [];
       authUser.externalAuthToken = accessToken;

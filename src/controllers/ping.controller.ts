@@ -63,6 +63,7 @@ export class PingController {
     @inject('datasources.twilio')
     protected twilioDataSource: TwilioDataSource,
 
+
   ) { }
 
   // Map to `GET /ping`
@@ -78,7 +79,7 @@ export class PingController {
     };
   }
 
-  @get('/create/solution')
+  @post('/create/solution')
   @response(200)
   async createSolution() {
     //add phone number to db and to asterisk
@@ -101,7 +102,7 @@ export class PingController {
     return await this.twilioDataSource.availableNumbers()
   }
 
-  @get('/purchase/number')
+  @post('/purchase/number')
   @response(200)
   async purchaseNumber(phoneNumber: string) {
     //call asterisk  and add agent to dynamic queue
@@ -111,49 +112,61 @@ export class PingController {
     return await this.twilioDataSource.purchaseNumber(phoneNumber)
   }
 
-  @get('/queue/add/agent')
+  @post('/queue/add/agent')
   @response(200)
-  async addAgent() {
+  async addAgent(
+    @requestBody() body: any,
+  ) {
     //call asterisk  and add agent to dynamic queue
     //add agent to solution
     //fwconsole reload
     console.log("Add Agebt")
-    return this.nodeService.addAgentToQueue()
+    return this.nodeService.addAgentToQueue(body.user, body.queue)
   }
-  @get('/create/hold-music')
+  @post('/create/hold-music')
   @response(200)
-  async createHoldMusic() {
+  async createHoldMusic(
+    @requestBody() body: any,
+  ) {
     //call asterisk server and upload music
     //add music to db
     //fwconsole reload
     console.log("Add Music")
-    return this.nodeService.addMusic()
+    return this.nodeService.addMusic(body.music)
   }
   @post('/create/agent')
   @response(200)
-  async createAgent() {
+
+  async createAgent(
+    @requestBody() body: any,
+  ) {
     //call asterisk sdd misc ext
     //OR
     //call asterisk and add extension and user to db => if they ar eusing a softphoe
     console.log("Add Agent")
-    return this.nodeService.addUser()
+    // console.log(this.req)
+    return this.nodeService.addUser(body.user)
   }
   @post('/create/incoming-route')
   @response(200)
-  async createIncoming() {
+  async createIncoming(
+    @requestBody() body: any,
+  ) {
     console.log("Create Incoming")
     //call twilio and create number
     //call asterisk and add number
     //add both to database phone number => phone number db
     // store asterisk incoming id with phone number
     //stroe twilio id with number
-
-    return this.nodeService.addIncoming()
+    console.log(body)
+    return this.nodeService.addIncoming(body.phone_number)
 
   }
   @post('/create/queue')
   @response(200)
-  async createQueue() {
+  async createQueue(
+    @requestBody() body: any,
+  ) {
     console.log("Create Incoming")
     //call twilio and create number
     //call asterisk and add number
@@ -161,12 +174,14 @@ export class PingController {
     // store asterisk incoming id with phone number
     //stroe twilio id with number
 
-    return this.nodeService.addQueue()
+    return this.nodeService.addQueue(body.queue)
 
   }
   @post('/agent/edit/number')
   @response(200)
-  async agentChangeNumber() {
+  async agentChangeNumber(
+    @requestBody() body: any,
+  ) {
     console.log("Edit NUmber")
     //call twilio and create number
     //call asterisk and add number
@@ -174,12 +189,14 @@ export class PingController {
     // store asterisk incoming id with phone number
     //stroe twilio id with number
 
-    return this.nodeService.agentChangeNumber()
+    return this.nodeService.agentChangeNumber(body.user)
 
   }
   @post('/client/edit/queue')
   @response(200)
-  async clientEditQueue() {
+  async clientEditQueue(
+    @requestBody() body: any,
+  ) {
     console.log("Edit Queue")
     //call twilio and create number
     //call asterisk and add number
@@ -187,12 +204,14 @@ export class PingController {
     // store asterisk incoming id with phone number
     //stroe twilio id with number
 
-    return this.nodeService.clientChangeQueue()
+    return this.nodeService.clientChangeQueue(body.queue)
 
   }
   @post('/client/edit/music')
   @response(200)
-  async clientEditWQueue() {
+  async clientEditMusic(
+    @requestBody() body: any,
+  ) {
     console.log("Edit Music")
     //call twilio and create number
     //call asterisk and add number
@@ -200,7 +219,7 @@ export class PingController {
     // store asterisk incoming id with phone number
     //stroe twilio id with number
 
-    return this.nodeService.clientChangeMusic()
+    return this.nodeService.clientChangeMusic(body.music, body.queue)
 
   }
   @post("/buy-number")

@@ -1,5 +1,6 @@
 import {inject, Provider} from '@loopback/core';
 import {getService} from '@loopback/service-proxy';
+import {PhoneNumber} from 'twilio/lib/interfaces';
 
 import {NodeserverDataSource} from '../datasources';
 import {Queue} from '../models';
@@ -11,15 +12,17 @@ export interface solution {
 }
 export interface NodeService {
   getGreeting: any;
-  addUser<User>(): User;
-  addQueue<Queue>(): Queue;
-  addMusic<Music>(): Music;
-  addIncoming<Incoming>(): Incoming;
-  addAgentToQueue<Agent, Queue>(): solution;
-  agentChangeNumber<PhoneNumber>(): PhoneNumber;
-  clientChangeQueue<Queue>(): Queue;
-  clientChangeMusic<Music>(): Music;
-  clientChangeAgents<Agent>(): Agent;
+  addUser<User>(user: User): User;
+  addQueue<Queue>(queue: Queue): Queue;
+  addMusic<Music>(music: Music): Music;
+  addIncoming<Incoming>(phone_number: PhoneNumber): Incoming;
+  addAgentToQueue<Agent, Queue>(agent: User, queue: Queue): solution;
+  agentChangeNumber<User>(user: User): User;
+  clientChangeQueue<Queue>(queue: Queue): Queue;
+  clientChangeMusic<Music>(music: Music, queue: Queue): Music;
+  clientChangeAgents<Agent>(queue: Queue, agent: User): Agent;
+  deactivateAgent<Agent>(): void;
+  deactivateQueue<Agent>(): void;
 
   // this is where you define the Node.js methods that will be
   // mapped to REST/SOAP/gRPC operations as stated in the datasource

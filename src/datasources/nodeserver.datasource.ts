@@ -47,7 +47,7 @@ const config = {
         },
       },
       functions: {
-        addQUeue: ["queue"],
+        addQueue: ["queue"],
       },
     },
     {
@@ -92,12 +92,12 @@ const config = {
         method: 'POST',
         url: 'http://localhost:3500/agent/change/number',
         body: {
-          number: "{number}",
-          id: "{id}"
+          agent: "{agent}",
+
         },
       },
       functions: {
-        addUser: ["number", "id"],
+        agentChangeNumber: ["agent"],
       },
     },
     {
@@ -110,7 +110,7 @@ const config = {
         },
       },
       functions: {
-        addUser: ["queue", "clientId"],
+        clientChangeQueue: ["queue", "clientId"],
       },
     },
     {
@@ -118,13 +118,12 @@ const config = {
         method: 'POST',
         url: 'http://localhost:3500/client/change/music',
         body: {
-          client: "{client}",
           music: "{music}",
           queue: "{queue}",
         },
       },
       functions: {
-        clientChangeMusic: ["client", "music", "queue"],
+        clientChangeMusic: ["music", "queue"],
       },
     },
     {

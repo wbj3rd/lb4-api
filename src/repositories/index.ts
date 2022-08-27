@@ -6,3 +6,6 @@ export * from './queue.repository';
 export * from './music.repository';
 export * from './solution.repository';
 export * from './extension.repository';
+export * from './user-api.repository';
+export * from './agent.repository';
+export * from './client.repository';

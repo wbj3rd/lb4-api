@@ -1,6 +1,6 @@
-import {model, property} from '@loopback/repository';
+import {model, property, hasMany} from '@loopback/repository';
 import {User} from './user.model';
-
+import {Solution} from './solution.model';
 
 @model({settings: {strict: false}})
 export class UserApi extends User {
@@ -18,6 +18,8 @@ export class UserApi extends User {
   })
   roles?: string[];
 
+  @hasMany(() => Solution)
+  solutions: Solution[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

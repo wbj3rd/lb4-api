@@ -1,6 +1,7 @@
-import {model, property} from '@loopback/repository';
+import {model, property, hasMany} from '@loopback/repository';
 import {UserModifiableEntity} from './user-modifiable-entity.model';
-
+import {Queue} from './queue.model';
+import {PhoneNumber} from './phone-number.model';
 
 @model({settings: {strict: false}})
 export class Solution extends UserModifiableEntity {
@@ -35,6 +36,26 @@ export class Solution extends UserModifiableEntity {
   })
   music?: string;
 
+  @property({
+    type: 'string',
+  })
+  userApiId?: string;
+
+  @hasMany(() => Queue)
+  queues: Queue[];
+
+  @hasMany(() => PhoneNumber)
+  phoneNumbers: PhoneNumber[];
+
+  @property({
+    type: 'string',
+  })
+  clientId?: string;
+
+  @property({
+    type: 'string',
+  })
+  agentId?: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data

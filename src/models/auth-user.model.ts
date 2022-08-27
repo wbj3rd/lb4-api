@@ -6,10 +6,10 @@ import {IAuthUser} from 'loopback4-authentication';
 })
 export class AuthUser extends Entity implements IAuthUser {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
   })
-  id?: number;
+  id?: string;
 
   @property({
     type: 'string',

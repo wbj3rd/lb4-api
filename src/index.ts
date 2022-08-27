@@ -1,9 +1,9 @@
-import {ApiApplication, ApplicationConfig} from './application';
+import {App, ApplicationConfig} from './application';
 
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
-  const app = new ApiApplication(options);
+  const app = new App(options);
   await app.boot();
   await app.start();
 
@@ -15,6 +15,7 @@ export async function main(options: ApplicationConfig = {}) {
 }
 
 if (require.main === module) {
+
   // Run the application
   const config = {
     rest: {
