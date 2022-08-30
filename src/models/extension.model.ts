@@ -5,11 +5,11 @@ import {UserModifiableEntity} from './user-modifiable-entity.model';
 @model({settings: {strict: false}})
 export class Extension extends UserModifiableEntity {
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
     generated: true,
   })
-  id?: string;
+  id?: number;
 
   @property({
     type: 'string',
@@ -24,10 +24,10 @@ export class Extension extends UserModifiableEntity {
   asteriskId: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  agentId: string;
+  agentId: number;
 
   // Define well-known properties here
 

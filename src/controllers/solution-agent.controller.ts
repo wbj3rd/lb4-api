@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where
+  Where,
 } from '@loopback/repository';
 import {
   del,
@@ -13,25 +13,26 @@ import {
   param,
   patch,
   post,
-  requestBody
+  requestBody,
 } from '@loopback/rest';
 import {
-  Queue, Solution
+  Solution,
+  Agent,
 } from '../models';
 import {SolutionRepository} from '../repositories';
 
-export class SolutionQueueController {
+export class SolutionAgentController {
   constructor(
     @repository(SolutionRepository) protected solutionRepository: SolutionRepository,
   ) { }
 
-  @get('/solutions/{id}/queues', {
+  @get('/solutions/{id}/agents', {
     responses: {
       '200': {
-        description: 'Array of Solution has many Queue',
+        description: 'Array of Solution has many Agent',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(Queue)},
+            schema: {type: 'array', items: getModelSchemaRef(Agent)},
           },
         },
       },
@@ -39,16 +40,16 @@ export class SolutionQueueController {
   })
   async find(
     @param.path.number('id') id: number,
-    @param.query.object('filter') filter?: Filter<Queue>,
-  ): Promise<Queue[]> {
-    return this.solutionRepository.queues(id).find(filter);
+    @param.query.object('filter') filter?: Filter<Agent>,
+  ): Promise<Agent[]> {
+    return this.solutionRepository.agents(id).find(filter);
   }
 
-  @post('/solutions/{id}/queues', {
+  @post('/solutions/{id}/agents', {
     responses: {
       '200': {
         description: 'Solution model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Queue)}},
+        content: {'application/json': {schema: getModelSchemaRef(Agent)}},
       },
     },
   })
@@ -57,22 +58,22 @@ export class SolutionQueueController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Queue, {
-            title: 'NewQueueInSolution',
+          schema: getModelSchemaRef(Agent, {
+            title: 'NewAgentInSolution',
             exclude: ['id'],
             optional: ['solutionId']
           }),
         },
       },
-    }) queue: Omit<Queue, 'id'>,
-  ): Promise<Queue> {
-    return this.solutionRepository.queues(id).create(queue);
+    }) agent: Omit<Agent, 'id'>,
+  ): Promise<Agent> {
+    return this.solutionRepository.agents(id).create(agent);
   }
 
-  @patch('/solutions/{id}/queues', {
+  @patch('/solutions/{id}/agents', {
     responses: {
       '200': {
-        description: 'Solution.Queue PATCH success count',
+        description: 'Solution.Agent PATCH success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -82,28 +83,28 @@ export class SolutionQueueController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Queue, {partial: true}),
+          schema: getModelSchemaRef(Agent, {partial: true}),
         },
       },
     })
-    queue: Partial<Queue>,
-    @param.query.object('where', getWhereSchemaFor(Queue)) where?: Where<Queue>,
+    agent: Partial<Agent>,
+    @param.query.object('where', getWhereSchemaFor(Agent)) where?: Where<Agent>,
   ): Promise<Count> {
-    return this.solutionRepository.queues(id).patch(queue, where);
+    return this.solutionRepository.agents(id).patch(agent, where);
   }
 
-  @del('/solutions/{id}/queues', {
+  @del('/solutions/{id}/agents', {
     responses: {
       '200': {
-        description: 'Solution.Queue DELETE success count',
+        description: 'Solution.Agent DELETE success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
   })
   async delete(
     @param.path.number('id') id: number,
-    @param.query.object('where', getWhereSchemaFor(Queue)) where?: Where<Queue>,
+    @param.query.object('where', getWhereSchemaFor(Agent)) where?: Where<Agent>,
   ): Promise<Count> {
-    return this.solutionRepository.queues(id).delete(where);
+    return this.solutionRepository.agents(id).delete(where);
   }
 }

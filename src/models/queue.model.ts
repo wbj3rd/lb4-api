@@ -5,11 +5,11 @@ import {UserModifiableEntity} from './user-modifiable-entity.model';
 @model({settings: {strict: false}})
 export class Queue extends UserModifiableEntity {
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
     generated: true,
   })
-  id?: string;
+  id?: number;
 
   @property({
     type: 'string',
@@ -18,10 +18,10 @@ export class Queue extends UserModifiableEntity {
   name: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  solutionId: string;
+  solutionId: number;
 
   // Define well-known properties here
 

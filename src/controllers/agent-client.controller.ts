@@ -39,7 +39,7 @@ export class AgentClientController {
     },
   })
   async find(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<Client>,
   ): Promise<Client[]> {
     return this.agentRepository.clients(id).find(filter);
@@ -78,7 +78,7 @@ export class AgentClientController {
     },
   })
   async patch(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -101,7 +101,7 @@ export class AgentClientController {
     },
   })
   async delete(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.query.object('where', getWhereSchemaFor(Client)) where?: Where<Client>,
   ): Promise<Count> {
     return this.agentRepository.clients(id).delete(where);

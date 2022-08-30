@@ -5,11 +5,11 @@ import {BaseEntity} from './base-entity.model';
 @model({settings: {strict: false}})
 export class Music extends BaseEntity {
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
     generated: true,
   })
-  id?: string;
+  id?: number;
 
   @property({
     type: 'string',

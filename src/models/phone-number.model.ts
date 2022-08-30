@@ -5,11 +5,11 @@ import {UserModifiableEntity} from './user-modifiable-entity.model';
 @model({settings: {strict: false}})
 export class PhoneNumber extends UserModifiableEntity {
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
     generated: true,
   })
-  id?: string;
+  id?: number;
 
   @property({
     type: 'string',
@@ -23,9 +23,9 @@ export class PhoneNumber extends UserModifiableEntity {
   twilioId?: string;
 
   @property({
-    type: 'string',
+    type: 'number',
   })
-  solutionId?: string;
+  solutionId?: number;
 
   // Define well-known properties here
 

@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,11 +13,11 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
   Agent,
-  Solution,
+  Solution
 } from '../models';
 import {AgentRepository} from '../repositories';
 
@@ -39,7 +39,7 @@ export class AgentSolutionController {
     },
   })
   async find(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<Solution>,
   ): Promise<Solution[]> {
     return this.agentRepository.solutions(id).find(filter);
@@ -79,7 +79,7 @@ export class AgentSolutionController {
     },
   })
   async patch(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -102,7 +102,7 @@ export class AgentSolutionController {
     },
   })
   async delete(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.query.object('where', getWhereSchemaFor(Solution)) where?: Where<Solution>,
   ): Promise<Count> {
     return this.agentRepository.solutions(id).delete(where);

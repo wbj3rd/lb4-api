@@ -13,5 +13,5 @@ export abstract class UserModifiableEntity extends BaseEntity {
     type: 'number',
     name: 'modified_by',
   })
-  modifiedBy?: string;
+  modifiedBy?: number;
 }

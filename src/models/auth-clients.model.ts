@@ -10,6 +10,7 @@ export class AuthClient extends BaseEntity implements IAuthClient {
   @property({
     type: 'number',
     id: true,
+    generated: true
   })
   id?: number;
 

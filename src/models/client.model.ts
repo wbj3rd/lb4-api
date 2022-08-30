@@ -1,4 +1,4 @@
-import {hasMany, model} from '@loopback/repository';
+import {hasMany, model, property} from '@loopback/repository';
 
 import {Agent} from './agent.model';
 import {Solution} from './solution.model';
@@ -13,7 +13,12 @@ export class Client extends User {
   @hasMany(() => Agent, {through: {model: () => Solution}})
   agents: Agent[];
   // Define well-known properties here
-
+  @property({
+    type: 'string',
+    required: true,
+    name: 'name',
+  })
+  name: string;
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;

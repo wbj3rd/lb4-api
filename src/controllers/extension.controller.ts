@@ -4,18 +4,12 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Extension} from '../models';
 import {ExtensionRepository} from '../repositories';
@@ -23,8 +17,8 @@ import {ExtensionRepository} from '../repositories';
 export class ExtensionController {
   constructor(
     @repository(ExtensionRepository)
-    public extensionRepository : ExtensionRepository,
-  ) {}
+    public extensionRepository: ExtensionRepository,
+  ) { }
 
   @post('/extensions')
   @response(200, {
@@ -105,7 +99,7 @@ export class ExtensionController {
     },
   })
   async findById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.filter(Extension, {exclude: 'where'}) filter?: FilterExcludingWhere<Extension>
   ): Promise<Extension> {
     return this.extensionRepository.findById(id, filter);
@@ -116,7 +110,7 @@ export class ExtensionController {
     description: 'Extension PATCH success',
   })
   async updateById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -134,7 +128,7 @@ export class ExtensionController {
     description: 'Extension PUT success',
   })
   async replaceById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody() extension: Extension,
   ): Promise<void> {
     await this.extensionRepository.replaceById(id, extension);
@@ -144,7 +138,7 @@ export class ExtensionController {
   @response(204, {
     description: 'Extension DELETE success',
   })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
+  async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.extensionRepository.deleteById(id);
   }
 }

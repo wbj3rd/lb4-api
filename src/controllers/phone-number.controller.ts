@@ -4,18 +4,12 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {PhoneNumber} from '../models';
 import {PhoneNumberRepository} from '../repositories';
@@ -23,8 +17,8 @@ import {PhoneNumberRepository} from '../repositories';
 export class PhoneNumberController {
   constructor(
     @repository(PhoneNumberRepository)
-    public phoneNumberRepository : PhoneNumberRepository,
-  ) {}
+    public phoneNumberRepository: PhoneNumberRepository,
+  ) { }
 
   @post('/phone-numbers')
   @response(200, {
@@ -105,7 +99,7 @@ export class PhoneNumberController {
     },
   })
   async findById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.filter(PhoneNumber, {exclude: 'where'}) filter?: FilterExcludingWhere<PhoneNumber>
   ): Promise<PhoneNumber> {
     return this.phoneNumberRepository.findById(id, filter);
@@ -116,7 +110,7 @@ export class PhoneNumberController {
     description: 'PhoneNumber PATCH success',
   })
   async updateById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -134,7 +128,7 @@ export class PhoneNumberController {
     description: 'PhoneNumber PUT success',
   })
   async replaceById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody() phoneNumber: PhoneNumber,
   ): Promise<void> {
     await this.phoneNumberRepository.replaceById(id, phoneNumber);
@@ -144,7 +138,7 @@ export class PhoneNumberController {
   @response(204, {
     description: 'PhoneNumber DELETE success',
   })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
+  async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.phoneNumberRepository.deleteById(id);
   }
 }

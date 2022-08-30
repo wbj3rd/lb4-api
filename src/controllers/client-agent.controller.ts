@@ -3,9 +3,9 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -13,12 +13,10 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
-Client,
-Solution,
-Agent,
+  Agent, Client
 } from '../models';
 import {ClientRepository} from '../repositories';
 
@@ -40,7 +38,7 @@ export class ClientAgentController {
     },
   })
   async find(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<Agent>,
   ): Promise<Agent[]> {
     return this.clientRepository.agents(id).find(filter);
@@ -79,7 +77,7 @@ export class ClientAgentController {
     },
   })
   async patch(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -102,7 +100,7 @@ export class ClientAgentController {
     },
   })
   async delete(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.query.object('where', getWhereSchemaFor(Agent)) where?: Where<Agent>,
   ): Promise<Count> {
     return this.clientRepository.agents(id).delete(where);

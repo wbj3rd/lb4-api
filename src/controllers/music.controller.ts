@@ -4,18 +4,12 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Music} from '../models';
 import {MusicRepository} from '../repositories';
@@ -23,8 +17,8 @@ import {MusicRepository} from '../repositories';
 export class MusicController {
   constructor(
     @repository(MusicRepository)
-    public musicRepository : MusicRepository,
-  ) {}
+    public musicRepository: MusicRepository,
+  ) { }
 
   @post('/music')
   @response(200, {
@@ -105,7 +99,7 @@ export class MusicController {
     },
   })
   async findById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.filter(Music, {exclude: 'where'}) filter?: FilterExcludingWhere<Music>
   ): Promise<Music> {
     return this.musicRepository.findById(id, filter);
@@ -116,7 +110,7 @@ export class MusicController {
     description: 'Music PATCH success',
   })
   async updateById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -134,7 +128,7 @@ export class MusicController {
     description: 'Music PUT success',
   })
   async replaceById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody() music: Music,
   ): Promise<void> {
     await this.musicRepository.replaceById(id, music);
@@ -144,7 +138,7 @@ export class MusicController {
   @response(204, {
     description: 'Music DELETE success',
   })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
+  async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.musicRepository.deleteById(id);
   }
 }

@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,11 +13,11 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
   Agent,
-  Extension,
+  Extension
 } from '../models';
 import {AgentRepository} from '../repositories';
 
@@ -39,7 +39,7 @@ export class AgentExtensionController {
     },
   })
   async get(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<Extension>,
   ): Promise<Extension> {
     return this.agentRepository.extension(id).get(filter);
@@ -79,7 +79,7 @@ export class AgentExtensionController {
     },
   })
   async patch(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -102,7 +102,7 @@ export class AgentExtensionController {
     },
   })
   async delete(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.query.object('where', getWhereSchemaFor(Extension)) where?: Where<Extension>,
   ): Promise<Count> {
     return this.agentRepository.extension(id).delete(where);

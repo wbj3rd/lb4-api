@@ -1,30 +1,28 @@
+import {inject} from '@loopback/core';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Solution} from '../models';
 import {SolutionRepository} from '../repositories';
+import {PingController} from './ping.controller';
 
 export class SolutionController {
   constructor(
     @repository(SolutionRepository)
-    public solutionRepository : SolutionRepository,
-  ) {}
+    public solutionRepository: SolutionRepository,
+    @inject('controllers.PingController')
+    public pingController: PingController
+  ) { }
 
   @post('/solutions')
   @response(200, {
@@ -37,13 +35,14 @@ export class SolutionController {
         'application/json': {
           schema: getModelSchemaRef(Solution, {
             title: 'NewSolution',
-            exclude: ['id'],
+            exclude: ['id', "agents"],
           }),
         },
       },
     })
     solution: Omit<Solution, 'id'>,
   ): Promise<Solution> {
+    console.log(solution)
     return this.solutionRepository.create(solution);
   }
 
@@ -105,7 +104,7 @@ export class SolutionController {
     },
   })
   async findById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.filter(Solution, {exclude: 'where'}) filter?: FilterExcludingWhere<Solution>
   ): Promise<Solution> {
     return this.solutionRepository.findById(id, filter);
@@ -116,7 +115,7 @@ export class SolutionController {
     description: 'Solution PATCH success',
   })
   async updateById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -134,7 +133,7 @@ export class SolutionController {
     description: 'Solution PUT success',
   })
   async replaceById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody() solution: Solution,
   ): Promise<void> {
     await this.solutionRepository.replaceById(id, solution);
@@ -144,7 +143,7 @@ export class SolutionController {
   @response(204, {
     description: 'Solution DELETE success',
   })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
+  async deleteById(@param.path.number("id") id: number): Promise<void> {
     await this.solutionRepository.deleteById(id);
   }
 }

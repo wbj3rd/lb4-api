@@ -1,45 +1,35 @@
-import {model, property, hasMany} from '@loopback/repository';
-import {UserModifiableEntity} from './user-modifiable-entity.model';
-import {Queue} from './queue.model';
+import {hasMany, model, property} from '@loopback/repository';
+import {Agent} from './agent.model';
 import {PhoneNumber} from './phone-number.model';
+import {Queue} from './queue.model';
+import {UserModifiableEntity} from './user-modifiable-entity.model';
 
 @model({settings: {strict: false}})
 export class Solution extends UserModifiableEntity {
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
     generated: true,
   })
-  id?: string;
+  id?: number;
 
   @property({
-    type: 'string',
-    required: true,
+    type: 'number',
+
   })
-  queueId: string;
+  queueId: number;
 
   @property({
-    type: 'string',
-    required: true,
-  })
-  phoneId: string;
+    type: 'number',
 
-  @property({
-    type: 'array',
-    itemType: 'string',
-    required: true,
   })
-  agents: string[];
+  phoneId: number;
+  @property({
+    type: 'number',
+  })
+  music?: number;
 
-  @property({
-    type: 'string',
-  })
-  music?: string;
 
-  @property({
-    type: 'string',
-  })
-  userApiId?: string;
 
   @hasMany(() => Queue)
   queues: Queue[];
@@ -48,14 +38,17 @@ export class Solution extends UserModifiableEntity {
   phoneNumbers: PhoneNumber[];
 
   @property({
-    type: 'string',
+    type: "number",
   })
-  clientId?: string;
+  clientId?: number;
 
   @property({
     type: 'string',
   })
   agentId?: string;
+
+  @hasMany(() => Agent)
+  agents: Agent[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

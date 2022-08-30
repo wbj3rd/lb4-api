@@ -1,4 +1,4 @@
-import {hasMany, hasOne, model} from '@loopback/repository';
+import {hasMany, hasOne, model, property} from '@loopback/repository';
 
 import {Client} from './client.model';
 import {Extension} from './extension.model';
@@ -16,6 +16,11 @@ export class Agent extends User {
 
   @hasMany(() => Client, {through: {model: () => Solution}})
   clients: Client[];
+
+  @property({
+    type: 'number',
+  })
+  solutionId?: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data

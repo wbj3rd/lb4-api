@@ -7,10 +7,11 @@ import {User} from './user.model';
 })
 export class UserCredentials extends BaseEntity {
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
+    generated: true
   })
-  id?: string;
+  id?: number;
 
   @belongsTo(
     () => User,

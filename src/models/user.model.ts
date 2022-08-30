@@ -12,10 +12,11 @@ import {UserModifiableEntity} from './user-modifiable-entity.model';
 })
 export class User extends UserModifiableEntity implements IAuthUser {
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
+    generated: true
   })
-  id?: string;
+  id?: number;
 
   @property({
     type: 'string',

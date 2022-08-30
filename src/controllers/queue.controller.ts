@@ -4,18 +4,12 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Queue} from '../models';
 import {QueueRepository} from '../repositories';
@@ -23,8 +17,8 @@ import {QueueRepository} from '../repositories';
 export class QueueController {
   constructor(
     @repository(QueueRepository)
-    public queueRepository : QueueRepository,
-  ) {}
+    public queueRepository: QueueRepository,
+  ) { }
 
   @post('/queues')
   @response(200, {
@@ -105,7 +99,7 @@ export class QueueController {
     },
   })
   async findById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.filter(Queue, {exclude: 'where'}) filter?: FilterExcludingWhere<Queue>
   ): Promise<Queue> {
     return this.queueRepository.findById(id, filter);
@@ -116,7 +110,7 @@ export class QueueController {
     description: 'Queue PATCH success',
   })
   async updateById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -134,7 +128,7 @@ export class QueueController {
     description: 'Queue PUT success',
   })
   async replaceById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody() queue: Queue,
   ): Promise<void> {
     await this.queueRepository.replaceById(id, queue);
@@ -144,7 +138,7 @@ export class QueueController {
   @response(204, {
     description: 'Queue DELETE success',
   })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
+  async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.queueRepository.deleteById(id);
   }
 }
