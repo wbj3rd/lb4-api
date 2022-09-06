@@ -1,5 +1,6 @@
-import {hasMany, model, property} from '@loopback/repository';
+import {hasOne, model, property, referencesMany} from '@loopback/repository';
 import {Agent} from './agent.model';
+import {Music} from './music.model';
 import {PhoneNumber} from './phone-number.model';
 import {Queue} from './queue.model';
 import {UserModifiableEntity} from './user-modifiable-entity.model';
@@ -14,41 +15,32 @@ export class Solution extends UserModifiableEntity {
   id?: number;
 
   @property({
-    type: 'number',
+    type: 'string',
 
   })
-  queueId: number;
+  name: string;
 
-  @property({
-    type: 'number',
-
-  })
-  phoneId: number;
-  @property({
-    type: 'number',
-  })
-  music?: number;
-
-
-
-  @hasMany(() => Queue)
-  queues: Queue[];
-
-  @hasMany(() => PhoneNumber)
-  phoneNumbers: PhoneNumber[];
 
   @property({
     type: "number",
   })
   clientId?: number;
 
-  @property({
-    type: 'string',
-  })
-  agentId?: string;
 
-  @hasMany(() => Agent)
-  agents: Agent[];
+
+  @referencesMany(() => Agent)
+  agentIds: number[];
+
+  @hasOne(() => PhoneNumber)
+  phoneNumber: PhoneNumber;
+
+  @hasOne(() => Music)
+  music: Music;
+
+  @hasOne(() => Queue)
+  queue: Queue;
+  //@hasMany(() => Agent)
+  //agents: Agent[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

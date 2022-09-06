@@ -17,39 +17,39 @@ import {
 } from '@loopback/rest';
 import {
   Solution,
-  Agent,
+  Music,
 } from '../models';
 import {SolutionRepository} from '../repositories';
 
-export class SolutionAgentController {
+export class SolutionMusicController {
   constructor(
     @repository(SolutionRepository) protected solutionRepository: SolutionRepository,
   ) { }
 
-  @get('/solutions/{id}/agents', {
+  @get('/solutions/{id}/music', {
     responses: {
       '200': {
-        description: 'Array of Solution has many Agent',
+        description: 'Solution has one Music',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(Agent)},
+            schema: getModelSchemaRef(Music),
           },
         },
       },
     },
   })
-  async find(
+  async get(
     @param.path.number('id') id: number,
-    @param.query.object('filter') filter?: Filter<Agent>,
-  ): Promise<Agent[]> {
-    return this.solutionRepository.agents(id).find(filter);
+    @param.query.object('filter') filter?: Filter<Music>,
+  ): Promise<Music> {
+    return this.solutionRepository.music(id).get(filter);
   }
 
-  @post('/solutions/{id}/agents', {
+  @post('/solutions/{id}/music', {
     responses: {
       '200': {
         description: 'Solution model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Agent)}},
+        content: {'application/json': {schema: getModelSchemaRef(Music)}},
       },
     },
   })
@@ -58,22 +58,22 @@ export class SolutionAgentController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Agent, {
-            title: 'NewAgentInSolution',
+          schema: getModelSchemaRef(Music, {
+            title: 'NewMusicInSolution',
             exclude: ['id'],
             optional: ['solutionId']
           }),
         },
       },
-    }) agent: Omit<Agent, 'id'>,
-  ): Promise<Agent> {
-    return this.solutionRepository.agents(id).create(agent);
+    }) music: Omit<Music, 'id'>,
+  ): Promise<Music> {
+    return this.solutionRepository.music(id).create(music);
   }
 
-  @patch('/solutions/{id}/agents', {
+  @patch('/solutions/{id}/music', {
     responses: {
       '200': {
-        description: 'Solution.Agent PATCH success count',
+        description: 'Solution.Music PATCH success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -83,28 +83,28 @@ export class SolutionAgentController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Agent, {partial: true}),
+          schema: getModelSchemaRef(Music, {partial: true}),
         },
       },
     })
-    agent: Partial<Agent>,
-    @param.query.object('where', getWhereSchemaFor(Agent)) where?: Where<Agent>,
+    music: Partial<Music>,
+    @param.query.object('where', getWhereSchemaFor(Music)) where?: Where<Music>,
   ): Promise<Count> {
-    return this.solutionRepository.agents(id).patch(agent, where);
+    return this.solutionRepository.music(id).patch(music, where);
   }
 
-  @del('/solutions/{id}/agents', {
+  @del('/solutions/{id}/music', {
     responses: {
       '200': {
-        description: 'Solution.Agent DELETE success count',
+        description: 'Solution.Music DELETE success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
   })
   async delete(
     @param.path.number('id') id: number,
-    @param.query.object('where', getWhereSchemaFor(Agent)) where?: Where<Agent>,
+    @param.query.object('where', getWhereSchemaFor(Music)) where?: Where<Music>,
   ): Promise<Count> {
-    return this.solutionRepository.agents(id).delete(where);
+    return this.solutionRepository.music(id).delete(where);
   }
 }

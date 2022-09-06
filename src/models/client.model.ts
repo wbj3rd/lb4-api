@@ -1,6 +1,5 @@
 import {hasMany, model, property} from '@loopback/repository';
 
-import {Agent} from './agent.model';
 import {Solution} from './solution.model';
 import {User} from './user.model';
 
@@ -10,8 +9,8 @@ export class Client extends User {
   @hasMany(() => Solution)
   solutions: Solution[];
 
-  @hasMany(() => Agent, {through: {model: () => Solution}})
-  agents: Agent[];
+  //@hasMany(() => Agent, {through: {model: () => Solution}})
+  //agents: Agent[];
   // Define well-known properties here
   @property({
     type: 'string',

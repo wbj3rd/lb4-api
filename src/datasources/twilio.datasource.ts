@@ -40,5 +40,13 @@ export class TwilioDataSource extends juggler.DataSource
       .create({phoneNumber: number})
       .then((incoming_phone_number: any) => console.log(incoming_phone_number.sid));
   }
+  public sendText(from: string, to: string, body: string) {
+    const client = require('twilio')(config.accountSid, config.authToken);
+    return client.messages.create({
+      from: from,
+      to: to,
+      body: body
+    })
+  }
 
 }

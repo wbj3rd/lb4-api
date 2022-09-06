@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where
+  Where,
 } from '@loopback/repository';
 import {
   del,
@@ -13,10 +13,11 @@ import {
   param,
   patch,
   post,
-  requestBody
+  requestBody,
 } from '@loopback/rest';
 import {
-  Queue, Solution
+  Solution,
+  Queue,
 } from '../models';
 import {SolutionRepository} from '../repositories';
 
@@ -25,26 +26,26 @@ export class SolutionQueueController {
     @repository(SolutionRepository) protected solutionRepository: SolutionRepository,
   ) { }
 
-  @get('/solutions/{id}/queues', {
+  @get('/solutions/{id}/queue', {
     responses: {
       '200': {
-        description: 'Array of Solution has many Queue',
+        description: 'Solution has one Queue',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(Queue)},
+            schema: getModelSchemaRef(Queue),
           },
         },
       },
     },
   })
-  async find(
+  async get(
     @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<Queue>,
-  ): Promise<Queue[]> {
-    return this.solutionRepository.queues(id).find(filter);
+  ): Promise<Queue> {
+    return this.solutionRepository.queue(id).get(filter);
   }
 
-  @post('/solutions/{id}/queues', {
+  @post('/solutions/{id}/queue', {
     responses: {
       '200': {
         description: 'Solution model instance',
@@ -66,10 +67,10 @@ export class SolutionQueueController {
       },
     }) queue: Omit<Queue, 'id'>,
   ): Promise<Queue> {
-    return this.solutionRepository.queues(id).create(queue);
+    return this.solutionRepository.queue(id).create(queue);
   }
 
-  @patch('/solutions/{id}/queues', {
+  @patch('/solutions/{id}/queue', {
     responses: {
       '200': {
         description: 'Solution.Queue PATCH success count',
@@ -89,10 +90,10 @@ export class SolutionQueueController {
     queue: Partial<Queue>,
     @param.query.object('where', getWhereSchemaFor(Queue)) where?: Where<Queue>,
   ): Promise<Count> {
-    return this.solutionRepository.queues(id).patch(queue, where);
+    return this.solutionRepository.queue(id).patch(queue, where);
   }
 
-  @del('/solutions/{id}/queues', {
+  @del('/solutions/{id}/queue', {
     responses: {
       '200': {
         description: 'Solution.Queue DELETE success count',
@@ -104,6 +105,6 @@ export class SolutionQueueController {
     @param.path.number('id') id: number,
     @param.query.object('where', getWhereSchemaFor(Queue)) where?: Where<Queue>,
   ): Promise<Count> {
-    return this.solutionRepository.queues(id).delete(where);
+    return this.solutionRepository.queue(id).delete(where);
   }
 }

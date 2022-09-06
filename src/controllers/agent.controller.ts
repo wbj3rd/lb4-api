@@ -42,6 +42,7 @@ export class AgentController {
     agent: Omit<Agent, 'id'>,
   ): Promise<Agent> {
     //send agent to asterisk server
+    console.log(agent)
     let result = await this.agentRepository.create(agent)
     result.fname = result.firstName;
     result.lname = result.lastName

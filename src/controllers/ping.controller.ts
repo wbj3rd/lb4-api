@@ -112,6 +112,18 @@ export class PingController {
     return await this.twilioDataSource.purchaseNumber(phoneNumber)
   }
 
+  @post('/send/text')
+  @response(200)
+  async sendTwilioMessage(
+    @requestBody() body: any,
+  ) {
+    //call asterisk  and add agent to dynamic queue
+    //add agent to solution
+    //fwconsole reload
+    console.log("Add Agebt")
+    return this.twilioDataSource.sendText(body.from, body.to, body.text)
+  }
+
   @post('/queue/add/agent')
   @response(200)
   async addAgent(

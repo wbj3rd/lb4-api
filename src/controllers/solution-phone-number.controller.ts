@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where
+  Where,
 } from '@loopback/repository';
 import {
   del,
@@ -13,10 +13,11 @@ import {
   param,
   patch,
   post,
-  requestBody
+  requestBody,
 } from '@loopback/rest';
 import {
-  PhoneNumber, Solution
+  Solution,
+  PhoneNumber,
 } from '../models';
 import {SolutionRepository} from '../repositories';
 
@@ -25,26 +26,26 @@ export class SolutionPhoneNumberController {
     @repository(SolutionRepository) protected solutionRepository: SolutionRepository,
   ) { }
 
-  @get('/solutions/{id}/phone-numbers', {
+  @get('/solutions/{id}/phone-number', {
     responses: {
       '200': {
-        description: 'Array of Solution has many PhoneNumber',
+        description: 'Solution has one PhoneNumber',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(PhoneNumber)},
+            schema: getModelSchemaRef(PhoneNumber),
           },
         },
       },
     },
   })
-  async find(
+  async get(
     @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<PhoneNumber>,
-  ): Promise<PhoneNumber[]> {
-    return this.solutionRepository.phoneNumbers(id).find(filter);
+  ): Promise<PhoneNumber> {
+    return this.solutionRepository.phoneNumber(id).get(filter);
   }
 
-  @post('/solutions/{id}/phone-numbers', {
+  @post('/solutions/{id}/phone-number', {
     responses: {
       '200': {
         description: 'Solution model instance',
@@ -53,7 +54,7 @@ export class SolutionPhoneNumberController {
     },
   })
   async create(
-    @param.path.string('id') id: typeof Solution.prototype.id,
+    @param.path.number('id') id: typeof Solution.prototype.id,
     @requestBody({
       content: {
         'application/json': {
@@ -66,10 +67,10 @@ export class SolutionPhoneNumberController {
       },
     }) phoneNumber: Omit<PhoneNumber, 'id'>,
   ): Promise<PhoneNumber> {
-    return this.solutionRepository.phoneNumbers(id).create(phoneNumber);
+    return this.solutionRepository.phoneNumber(id).create(phoneNumber);
   }
 
-  @patch('/solutions/{id}/phone-numbers', {
+  @patch('/solutions/{id}/phone-number', {
     responses: {
       '200': {
         description: 'Solution.PhoneNumber PATCH success count',
@@ -89,10 +90,10 @@ export class SolutionPhoneNumberController {
     phoneNumber: Partial<PhoneNumber>,
     @param.query.object('where', getWhereSchemaFor(PhoneNumber)) where?: Where<PhoneNumber>,
   ): Promise<Count> {
-    return this.solutionRepository.phoneNumbers(id).patch(phoneNumber, where);
+    return this.solutionRepository.phoneNumber(id).patch(phoneNumber, where);
   }
 
-  @del('/solutions/{id}/phone-numbers', {
+  @del('/solutions/{id}/phone-number', {
     responses: {
       '200': {
         description: 'Solution.PhoneNumber DELETE success count',
@@ -104,6 +105,6 @@ export class SolutionPhoneNumberController {
     @param.path.number('id') id: number,
     @param.query.object('where', getWhereSchemaFor(PhoneNumber)) where?: Where<PhoneNumber>,
   ): Promise<Count> {
-    return this.solutionRepository.phoneNumbers(id).delete(where);
+    return this.solutionRepository.phoneNumber(id).delete(where);
   }
 }

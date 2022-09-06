@@ -1,4 +1,3 @@
-import {inject} from '@loopback/core';
 import {
   Count,
   CountSchema,
@@ -14,14 +13,11 @@ import {
 } from '@loopback/rest';
 import {Solution} from '../models';
 import {SolutionRepository} from '../repositories';
-import {PingController} from './ping.controller';
 
 export class SolutionController {
   constructor(
     @repository(SolutionRepository)
     public solutionRepository: SolutionRepository,
-    @inject('controllers.PingController')
-    public pingController: PingController
   ) { }
 
   @post('/solutions')
@@ -35,14 +31,13 @@ export class SolutionController {
         'application/json': {
           schema: getModelSchemaRef(Solution, {
             title: 'NewSolution',
-            exclude: ['id', "agents"],
+            exclude: ['id', 'agents'],
           }),
         },
       },
     })
     solution: Omit<Solution, 'id'>,
   ): Promise<Solution> {
-    console.log(solution)
     return this.solutionRepository.create(solution);
   }
 
@@ -143,7 +138,7 @@ export class SolutionController {
   @response(204, {
     description: 'Solution DELETE success',
   })
-  async deleteById(@param.path.number("id") id: number): Promise<void> {
+  async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.solutionRepository.deleteById(id);
   }
 }
